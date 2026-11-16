@@ -1,0 +1,282 @@
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>Kyle Chu | Experience</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/custom.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<div id="logo"><a href="index.html">Kyle Chu</a></div>
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="experience.html" aria-current="page">Experience</a></li>
+							<li><a href="about.html">About</a></li>
+							<li><a href="#footer">Contact</a></li>
+							<li><a href="resume.html" class="button primary">Résumé</a></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h1>Experience</h1>
+						</header>
+
+						<!--
+							Career timeline.
+							Every entry starts open so the page works without JavaScript.
+							assets/js/timeline.js collapses entries below the reading line
+							and opens each one as you scroll to it.
+						-->
+						<div class="timeline is-still" data-timeline>
+
+							<!-- Sticky index of roles (hidden at phone width) -->
+							<nav class="timeline-index" aria-label="Jump to a role">
+								<ol class="timeline-index-list">
+									<li>
+										<a href="#role-aws" class="timeline-index-link" aria-current="true">
+											<span class="timeline-index-date">Summer 2026</span>
+											<span class="timeline-index-org">Amazon Web Services</span>
+										</a>
+									</li>
+									<li>
+										<a href="#role-ta" class="timeline-index-link">
+											<span class="timeline-index-date">Spring 2026</span>
+											<span class="timeline-index-org">Cornell Teaching Assistant</span>
+										</a>
+									</li>
+									<li>
+										<a href="#role-nonlinear" class="timeline-index-link">
+											<span class="timeline-index-date">Summer 2025</span>
+											<span class="timeline-index-org">Nonlinear</span>
+										</a>
+									</li>
+									<li>
+										<a href="#role-pdp" class="timeline-index-link">
+											<span class="timeline-index-date">Fall 2024 - Fall 2025</span>
+											<span class="timeline-index-org">Cornell Pi Delta Psi</span>
+										</a>
+									</li>
+									<li>
+										<a href="#role-igem" class="timeline-index-link">
+											<span class="timeline-index-date">Fall 2023 - Fall 2024</span>
+											<span class="timeline-index-org">Cornell iGEM</span>
+										</a>
+									</li>
+								</ol>
+							</nav>
+
+							<!-- Role entries -->
+							<ol class="timeline-entries">
+
+								<!-- AWS -->
+								<li id="role-aws" class="timeline-entry is-open">
+									<span class="timeline-marker" aria-hidden="true"></span>
+									<p class="timeline-date">Summer 2026</p>
+									<h3 class="timeline-title">Software Engineering Intern</h3>
+									<p class="timeline-org">Amazon Web Services</p>
+									<div class="timeline-details">
+										<div class="timeline-details-inner">
+											<div class="timeline-body">
+												<dl class="timeline-facts">
+													<dt>What I did</dt>
+													<dd>I built an employee-identification feature for Amazon Just Walk Out, the checkout-free shopping technology. It connected three Kotlin services using AWS SQS, SNS, S3, and DynamoDB, along with a Python computer vision pipeline.</dd>
+													<dt>Impact</dt>
+													<dd>In testing, it identified 91% of employee sessions with zero false positives, and a downstream team projects it will cut manual review by about 70% across 450 stores.</dd>
+												</dl>
+												<div class="timeline-media">
+													<div class="timeline-photo">
+														<img src="images/aws-team.jpg" width="960" height="720" loading="lazy" alt="Kyle with his Just Walk Out teammates in safety vests on a store floor" />
+													</div>
+												</div>
+												<details class="timeline-reflection">
+													<summary>
+														Personal reflection
+														<svg class="timeline-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" /></svg>
+													</summary>
+													<p>During one of my design reviews, an engineer pushed back on where I triggered my feature in the pipeline. I had proposed later in the pipeline, and he thought it should be earlier. Instead of just picking one, we talked it through with more engineers, and they agreed my spot made sense for now but asked me to build it so the trigger could be moved later. That changed how I think about design.</p>
+												</details>
+											</div>
+										</div>
+									</div>
+								</li>
+
+								<!-- CS 4670 TA -->
+								<li id="role-ta" class="timeline-entry is-open">
+									<span class="timeline-marker" aria-hidden="true"></span>
+									<p class="timeline-date">Spring 2026</p>
+									<h3 class="timeline-title">Teaching Assistant, CS 4670</h3>
+									<p class="timeline-org">Cornell Teaching Assistant</p>
+									<div class="timeline-details">
+										<div class="timeline-details-inner">
+											<div class="timeline-body timeline-text-only">
+												<dl class="timeline-facts">
+													<dt>What I did</dt>
+													<dd>I helped teach 170+ students in Cornell’s computer vision course through office hours, and worked on PyTorch assignments covering neural networks and image segmentation.</dd>
+													<dt>Impact</dt>
+													<dd>I helped standardize grading across our 20-person course staff so every student got consistent feedback.</dd>
+												</dl>
+												<details class="timeline-reflection">
+													<summary>
+														Personal reflection
+														<svg class="timeline-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" /></svg>
+													</summary>
+													<p>As a TA, I found myself needing to explain technical concepts to students, which I realized I didn't have a lot of experience with. Every student learns differently, so I got a lot of experience explaining ideas in different ways. Now that I've explained computer vision concepts, I've learned the importance of how explaining things to others helps you understand them better yourself.</p>
+												</details>
+											</div>
+										</div>
+									</div>
+								</li>
+
+								<!-- Nonlinear -->
+								<li id="role-nonlinear" class="timeline-entry is-open">
+									<span class="timeline-marker" aria-hidden="true"></span>
+									<p class="timeline-date">Summer 2025</p>
+									<h3 class="timeline-title">Software Engineering Intern</h3>
+									<p class="timeline-org">Nonlinear</p>
+									<div class="timeline-details">
+										<div class="timeline-details-inner">
+											<div class="timeline-body timeline-text-only">
+												<dl class="timeline-facts">
+													<dt>What I did</dt>
+													<dd>I built an AI workflow builder with FastAPI, React, and LangChain that let construction firms automate their document review without the need for technical expertise.</dd>
+													<dt>Impact</dt>
+													<dd>Two architecture and construction firms tested the product and loved the effectiveness and intuitivity of the product.</dd>
+												</dl>
+												<details class="timeline-reflection">
+													<summary>
+														Personal reflection
+														<svg class="timeline-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" /></svg>
+													</summary>
+													<p>On my first project, my manager told me we were falling behind because I was trying to make everything perfect instead of usable. I took that feedback, cut back scope, and shipped a working version in a few weeks so the founders could demo it to customers. I learned that building a simple foundation matters more than polishing the perfect product on the first try.</p>
+												</details>
+											</div>
+										</div>
+									</div>
+								</li>
+
+								<!-- Pi Delta Psi -->
+								<li id="role-pdp" class="timeline-entry is-open">
+									<span class="timeline-marker" aria-hidden="true"></span>
+									<p class="timeline-date">Fall 2024 - Fall 2025</p>
+									<h3 class="timeline-title">Front-End Developer</h3>
+									<p class="timeline-org">Cornell Pi Delta Psi</p>
+									<div class="timeline-details">
+										<div class="timeline-details-inner">
+											<div class="timeline-body">
+												<dl class="timeline-facts">
+													<dt>What I did</dt>
+													<dd>I redesigned every page of our chapter's website and added a donation page using Next.js and React.</dd>
+													<dt>Impact</dt>
+													<dd>The chapter still uses the site to recruit new members every rush season, and alumni can now donate online.</dd>
+												</dl>
+												<div class="timeline-media">
+													<div class="timeline-photo">
+														<img src="images/pdp.jpg" width="960" height="495" loading="lazy" alt="[Describe your Pi Delta Psi photo]" />
+													</div>
+													<a href="https://www.cornellpdp.com/" class="timeline-role-link" target="_blank" rel="noopener noreferrer">
+														Visit the website
+														<svg class="timeline-external-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3h7v7M13 3L5 11" fill="none" stroke="currentColor" stroke-width="1.75" /></svg>
+														<span class="sr-only">(opens in a new tab)</span>
+													</a>
+												</div>
+												<details class="timeline-reflection">
+													<summary>
+														Personal reflection
+														<svg class="timeline-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" /></svg>
+													</summary>
+													<p>When I first looked at our website, it looked pretty old and primitive, and I realized it was usually the first thing a rush candidate or alum saw of us. Instead of fixing a few pages, I decided to redesign all of them to make the site cleaner and more visually appealing, and I added a donation page to get more people to support the fraternity.</p>
+												</details>
+											</div>
+										</div>
+									</div>
+								</li>
+
+								<!-- iGEM -->
+								<li id="role-igem" class="timeline-entry is-open">
+									<span class="timeline-marker" aria-hidden="true"></span>
+									<p class="timeline-date">Fall 2023 - Fall 2024</p>
+									<h3 class="timeline-title">Front-End Developer</h3>
+									<p class="timeline-org">Cornell iGEM</p>
+									<div class="timeline-details">
+										<div class="timeline-details-inner">
+											<div class="timeline-body">
+												<dl class="timeline-facts">
+													<dt>What I did</dt>
+													<dd>I built our team's 2024 competition website with five other people using HTML, CSS, and JavaScript. It was our official project submission for the iGEM Grand Jamboree, an international synthetic biology competition.</dd>
+													<dt>Impact</dt>
+													<dd>The site showed our Oncurex research to the judges, and our team won a Gold Medal at the 2024 Jamboree.</dd>
+												</dl>
+												<div class="timeline-media">
+													<div class="timeline-photo">
+														<img src="images/igem.jpg" width="960" height="474" loading="lazy" alt="[Describe your iGEM photo]" />
+													</div>
+													<a href="https://2024.igem.wiki/cornell/" class="timeline-role-link" target="_blank" rel="noopener noreferrer">
+														Visit the website
+														<svg class="timeline-external-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3h7v7M13 3L5 11" fill="none" stroke="currentColor" stroke-width="1.75" /></svg>
+														<span class="sr-only">(opens in a new tab)</span>
+													</a>
+												</div>
+												<details class="timeline-reflection">
+													<summary>
+														Personal reflection
+														<svg class="timeline-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" /></svg>
+													</summary>
+													<p>Six of us worked on the site, and each person built different pages. To make sure it still felt like one website, we set up a shared stylesheet before anyone started, so the colors, fonts, and layouts all matched. I realized that agreeing on the shared parts early is what let all of us work at the same time without blocking with each other. Now when I start a team project, I try to figure out what everyone needs to share, like styles or naming, before we split up the work.</p>
+												</details>
+											</div>
+										</div>
+									</div>
+								</li>
+
+							</ol>
+						</div>
+
+					</div>
+				</div>
+
+			<!-- Footer (Contact) -->
+				<footer id="footer">
+					<h2 class="footer-heading">Contact</h2>
+					<p class="footer-email"><a href="mailto:kyleghchu@gmail.com">kyleghchu@gmail.com</a></p>
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/kych2204/" class="icon brands alt fa-linkedin-in" aria-label="LinkedIn"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/kych23" class="icon brands alt fa-github" aria-label="GitHub"><span class="label">GitHub</span></a></li>
+						<li><a href="mailto:kyleghchu@gmail.com" class="icon solid alt fa-envelope" aria-label="Email"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; 2026 Kyle Chu</li><li>Last updated November 2026</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="assets/js/site.js"></script>
+			<script src="assets/js/timeline.js"></script>
+
+	</body>
+</html>

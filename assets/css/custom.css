@@ -1,0 +1,1052 @@
+/*
+	Custom styles for Kyle Chu's portfolio.
+	Loaded after main.css. Never edit main.css; override it here instead.
+*/
+
+/* Colors pulled from the Landed template so custom pieces match it. */
+:root {
+	--paper: #1c1d26;                      /* page background */
+	--surface: #272833;                    /* raised panels (header, cards) */
+	--ink: #ffffff;                        /* headings and emphasis */
+	--text: rgba(255, 255, 255, 0.75);     /* body text */
+	--muted: rgba(255, 255, 255, 0.6);     /* secondary text, still passes AA contrast */
+	--rule: rgba(255, 255, 255, 0.15);     /* lines and empty markers */
+	--accent: #e44c65;                     /* Landed's pink-red */
+	--accent-light: #f0788c;               /* accent text on --surface (passes AA there) */
+	--accent-button: #c8304b;              /* button fill: white text passes AA on it */
+	--accent-button-hover: #b02a42;
+	--radius: 10px;
+	--header-h: 3.5em;                     /* height of Landed's fixed header */
+}
+
+/* ==========================================================================
+   Shared: focus, contrast, navigation, buttons, footer
+   ========================================================================== */
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+	border-radius: 4px;
+}
+
+/* Landed sets outline: 0 on nav links and the phone menu toggle; restore focus. */
+#header nav ul li a:focus-visible,
+#titleBar .toggle:focus-visible,
+#navPanel .link:focus-visible {
+	outline: 2px solid var(--accent);
+	outline-offset: 3px;
+}
+
+/* "You are here": accent color AND underline, so color is never the only cue. */
+#header nav ul li a[aria-current="page"],
+#navPanel .link[aria-current="page"] {
+	color: var(--accent-light);
+	text-decoration: underline;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 6px;
+}
+
+/* On the Résumé page, the Résumé button is "here": white text kept, plus a
+   white ring and darker fill (two cues), instead of red-on-red text. */
+#header nav ul li a.button[aria-current="page"] {
+	color: #ffffff !important;
+	text-decoration: none;
+	background-color: var(--accent-button-hover);
+	box-shadow: inset 0 0 0 2px #ffffff;
+}
+
+/* Landed's white-on-#e44c65 buttons fail AA contrast (3.6:1); darken the fill. */
+.button.primary {
+	background-color: var(--accent-button);
+}
+
+.button.primary:hover {
+	background-color: var(--accent-button-hover);
+}
+
+/* Footer: brighter copyright text for contrast; a visible "last updated" line. */
+#footer .copyright {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+#footer .copyright li a {
+	border-bottom: none;
+	color: var(--ink);
+	text-decoration: underline;
+}
+
+/* Site name: a link, not a heading (each page's only h1 is its page name).
+   Same position and look as Landed's #header h1. */
+#header #logo {
+	position: absolute;
+	top: 0;
+	left: 1.25em;
+	height: inherit;
+	margin: 0;
+	line-height: inherit;
+}
+
+#header #logo a {
+	border-bottom: none;
+	color: #ffffff;
+	font-weight: 300;
+}
+
+/* Compact page header: less space above content, no decorative red rule.
+   Shared by every page that has header.major (About, Experience, Projects, Résumé). */
+#main.wrapper.style1 {
+	padding-top: 2.5em;
+}
+
+header.major {
+	margin: 0 0 1.5em 0;
+}
+
+header.major:after {
+	display: none;
+}
+
+header.major h1 {
+	margin: 0;
+	font-size: 2em;
+	line-height: 1.5em;
+	letter-spacing: -0.025em;
+}
+
+header.major p {
+	margin: 0;
+}
+
+/* Footer icons: Landed draws a 1px half-white outline, which reads faint.
+   Solid 80% white is about 10:1 against the footer (needs 3:1). */
+#footer .icons .icon.alt:before {
+	color: rgba(255, 255, 255, 0.8) !important;
+	text-shadow: none;
+}
+
+#footer .icons .icon.alt:hover:before {
+	color: var(--accent-light) !important;
+}
+
+/* Tags (stack, skills). Same style on every page. */
+.tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	list-style: none;
+	margin: 0 0 1.5em 0;
+	padding: 0;
+}
+
+.tags li {
+	padding: 2px 12px;
+	border: 1px solid var(--rule);
+	border-radius: 999px;
+	color: var(--text);
+	font-size: 0.8em;
+	line-height: 1.8;
+}
+
+/* Bracketed placeholder for an image Kyle hasn't supplied yet. */
+.photo-placeholder {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 1em;
+	background: var(--surface);
+	border: 1px dashed rgba(255, 255, 255, 0.35);
+	border-radius: var(--radius);
+	color: var(--muted);
+	font-size: 0.85em;
+	text-align: center;
+}
+
+/* Left-align body content; Landed centers a lot by default. */
+.wrapper.style1 .container {
+	text-align: left;
+}
+
+.wrapper.style1 header.major {
+	text-align: center;
+}
+
+/* Make the hidden attribute win over any display rule (e.g. toggle buttons). */
+[hidden] {
+	display: none !important;
+}
+
+/* Hide text visually but keep it for screen readers. */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
+/* ==========================================================================
+   Career timeline (experience.html)
+   State classes, set by assets/js/timeline.js:
+     .is-open   on an entry: its details are expanded
+     .is-still  on .timeline: transitions are paused (first paint and jumps)
+   ========================================================================== */
+
+.timeline {
+	display: grid;
+	grid-template-columns: 220px minmax(0, 1fr);
+	gap: 56px;
+	text-align: left;
+	/* Lets the reflection panel animate to height: auto in supporting browsers. */
+	interpolate-size: allow-keywords;
+}
+
+/* ---- Sticky index ---- */
+
+.timeline-index {
+	position: sticky;
+	/* Stay below the fixed header; center vertically when there is room. */
+	top: max(calc(var(--header-h) + 32px), calc(50vh - var(--index-h, 100vh) / 2));
+	align-self: start;
+}
+
+.timeline-index-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+.timeline-index-list li {
+	padding-left: 0;
+}
+
+/* Two stacked lines: a gray track and an accent fill that grows with --progress. */
+.timeline-index-list::before,
+.timeline-index-list::after {
+	content: "";
+	position: absolute;
+	top: 22px;
+	bottom: 22px;
+	left: 7px;
+	width: 2px;
+	background: var(--rule);
+}
+
+.timeline-index-list::after {
+	background: var(--accent);
+	transform-origin: top;
+	transform: scaleY(var(--progress, 0));
+	transition: transform 0.3s ease-out;
+}
+
+.timeline-index-link {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 44px;
+	padding: 6px 0 6px 30px;
+	position: relative;
+	border-bottom: none;
+	color: var(--muted);
+	line-height: 1.3;
+	transition: color 0.2s;
+}
+
+/* The dot for each role. */
+.timeline-index-link::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	z-index: 1;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--paper);
+	border: 2px solid var(--rule);
+	transition: border-color 0.2s, background 0.2s;
+}
+
+.timeline-index-link:hover::before {
+	border-color: var(--accent);
+}
+
+.timeline-index-link[aria-current="true"] {
+	color: var(--ink);
+}
+
+.timeline-index-link[aria-current="true"]::before {
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+.timeline-index-date {
+	font-size: 0.8em;
+}
+
+.timeline-index-org {
+	font-weight: 400;
+	font-size: 0.9em;
+}
+
+/* ---- Entries ---- */
+
+.timeline-entries {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+
+/* The vertical line running through every entry's marker. */
+.timeline-entries::before {
+	content: "";
+	position: absolute;
+	top: 8px;
+	bottom: 0;
+	left: 7px;
+	width: 2px;
+	background: var(--rule);
+}
+
+.timeline-entry {
+	position: relative;
+	padding: 0 0 56px 40px;
+	/* Land below the fixed header when jumped to. */
+	scroll-margin-top: calc(var(--header-h) + 32px);
+}
+
+.timeline-entry:last-child {
+	padding-bottom: 0;
+}
+
+/* Entries receive focus only as jump targets, so no outline is needed. */
+.timeline-entry:focus {
+	outline: none;
+}
+
+.timeline-marker {
+	position: absolute;
+	left: 0;
+	top: 6px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: var(--paper);
+	border: 2px solid var(--rule);
+	transition: border-color 0.3s, background 0.3s;
+}
+
+.timeline-entry.is-open .timeline-marker {
+	background: var(--accent);
+	border-color: var(--accent);
+}
+
+.timeline-date,
+.timeline-org {
+	margin: 0;
+	color: var(--muted);
+	font-size: 0.9em;
+}
+
+.timeline-title {
+	margin: 4px 0 2px;
+	font-size: 1.5em;
+	line-height: 1.2;
+}
+
+/* Collapse and expand with a grid-row trick: 1fr is open, 0fr is closed. */
+.timeline-details {
+	display: grid;
+	grid-template-rows: 1fr;
+	opacity: 1;
+	transition:
+		grid-template-rows 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+		opacity 0.4s ease-out 0.1s;
+}
+
+.timeline-entry:not(.is-open) .timeline-details {
+	grid-template-rows: 0fr;
+	opacity: 0;
+}
+
+.timeline-details-inner {
+	min-height: 0;
+	overflow: hidden;
+	/* Extra room so focus outlines aren't clipped by overflow: hidden. */
+	margin: 0 -16px;
+	padding: 0 16px 6px;
+}
+
+.timeline.is-still .timeline-details,
+.timeline.is-still .timeline-marker,
+.timeline.is-still .timeline-index-list::after {
+	transition: none;
+}
+
+.timeline-body {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 280px;
+	gap: 12px 32px;
+	padding-top: 20px;
+}
+
+.timeline-text-only {
+	grid-template-columns: 1fr;
+}
+
+.timeline-facts {
+	margin: 0;
+	max-width: 62ch;
+}
+
+.timeline-facts dt {
+	margin-top: 16px;
+	color: var(--accent);
+	font-weight: 400;
+	font-size: 0.95em;
+}
+
+.timeline-facts dt:first-child {
+	margin-top: 0;
+}
+
+.timeline-facts dd {
+	margin: 2px 0 0;
+}
+
+.timeline-media {
+	min-width: 0;
+}
+
+.timeline-photo {
+	aspect-ratio: 4 / 3;
+	border-radius: 10px;
+	overflow: hidden;
+	background: var(--surface);
+}
+
+.timeline-photo img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.timeline-role-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	min-height: 44px;
+	margin-top: 6px;
+	border-bottom: none;
+	color: var(--ink);
+	font-weight: 400;
+	font-size: 0.95em;
+	text-decoration: underline;
+	text-decoration-color: var(--rule);
+	text-decoration-thickness: 2px;
+	text-underline-offset: 4px;
+	transition: text-decoration-color 0.2s;
+}
+
+.timeline-role-link:hover {
+	text-decoration-color: var(--accent);
+}
+
+.timeline-external-icon {
+	width: 14px;
+	height: 14px;
+}
+
+/* ---- Reflection (native <details>) ---- */
+
+.timeline-reflection {
+	grid-column: 1 / -1;
+}
+
+.timeline-reflection summary {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 44px;
+	padding: 0 14px;
+	margin-left: -14px;
+	border-radius: 999px;
+	color: var(--accent);
+	font-weight: 400;
+	font-size: 0.95em;
+	cursor: pointer;
+	list-style: none;
+	transition: background 0.2s;
+}
+
+.timeline-reflection summary::-webkit-details-marker {
+	display: none;
+}
+
+.timeline-reflection summary:hover {
+	background: rgba(228, 76, 101, 0.12);
+}
+
+.timeline-chevron {
+	width: 16px;
+	height: 16px;
+	transition: transform 0.25s ease;
+}
+
+.timeline-reflection[open] .timeline-chevron {
+	transform: rotate(180deg);
+}
+
+.timeline-reflection p {
+	margin: 4px 0 2px;
+	padding: 16px 20px;
+	background: var(--surface);
+	border: 1px solid var(--rule);
+	border-left: 3px solid var(--accent);
+	border-radius: 10px;
+	line-height: 1.65;
+}
+
+/* Smooth open/close where ::details-content is supported; others snap open. */
+.timeline-reflection::details-content {
+	block-size: 0;
+	overflow: hidden;
+	transition:
+		block-size 0.3s ease,
+		content-visibility 0.3s allow-discrete;
+}
+
+.timeline-reflection[open]::details-content {
+	block-size: auto;
+}
+
+/* ---- Responsive (Landed's breakpoints) ---- */
+
+@media screen and (max-width: 980px) {
+	.timeline {
+		gap: 40px;
+	}
+
+	.timeline-body {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+
+	.timeline-photo {
+		max-width: 480px;
+	}
+}
+
+@media screen and (max-width: 736px) {
+	.timeline {
+		grid-template-columns: 1fr;
+	}
+
+	/* No room for the index on phones; the entries stand alone. */
+	.timeline-index {
+		display: none;
+	}
+
+	.timeline-entry {
+		padding-left: 32px;
+		/* Landed hides the fixed header at this width. */
+		scroll-margin-top: 32px;
+	}
+}
+
+/* ---- Reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+	.timeline-details,
+	.timeline-marker,
+	.timeline-chevron,
+	.timeline-reflection summary,
+	.timeline-reflection::details-content,
+	.timeline-index-link,
+	.timeline-index-link::before,
+	.timeline-index-list::after {
+		transition: none;
+	}
+}
+
+/* ==========================================================================
+   Home (index.html)
+   ========================================================================== */
+
+/* Shorter banner than Landed's full-screen one, so the highlights peek in. */
+#banner {
+	min-height: 0;
+	padding: 5em 0 4em;
+	background-image: none;
+	background-attachment: scroll;
+	text-align: left;
+}
+
+#banner:before,
+#banner:after {
+	display: none;
+}
+
+#banner .content {
+	display: flex;
+	align-items: center;
+	gap: 3em;
+	max-width: 60em;
+	margin: 0 auto;
+	padding: 0 2em;
+	text-align: left;
+}
+
+#banner .content .image,
+#banner .content .headshot-placeholder {
+	flex: 0 0 auto;
+	width: 15em;
+	height: 15em;
+	margin: 0;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+#banner .content .image img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center 25%;
+}
+
+/* Landed centers the banner header at smaller widths; keep it left-aligned. */
+#banner .content header {
+	display: block;
+	text-align: left;
+}
+
+#banner .content header h1 {
+	margin: 0;
+	letter-spacing: -0.025em;
+	font-size: 3em;
+	line-height: 1.1;
+}
+
+#banner .content header .blurb {
+	max-width: 38em;
+	margin: 1em 0 1.5em 0;
+}
+
+/* Section and footer headings. */
+.section-heading {
+	margin: 0 0 1em 0;
+	font-size: 1.75em;
+}
+
+.footer-heading {
+	margin: 0 0 0.5em 0;
+	font-size: 1.5em;
+}
+
+.footer-email {
+	margin: 0 0 1.5em 0;
+}
+
+.footer-email a {
+	border-bottom: none;
+	color: var(--ink);
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 4px;
+}
+
+/* Highlights: two cards (AWS, Nonlinear) linking into the Experience timeline. */
+.highlights {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 1.5em;
+	list-style: none;
+	margin: 0 0 2em 0;
+	padding: 0;
+}
+
+.highlights li {
+	padding: 1.5em;
+	background: var(--surface);
+	border-radius: var(--radius);
+}
+
+.card-meta {
+	margin: 0 0 0.25em 0;
+	color: var(--muted);
+	font-size: 0.85em;
+}
+
+.highlights h3 {
+	margin: 0 0 0.5em 0;
+	font-size: 1.1em;
+	line-height: 1.3;
+}
+
+.highlights h3 a {
+	border-bottom: none;
+	color: var(--ink);
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 4px;
+}
+
+.highlights p:last-child {
+	margin: 0;
+}
+
+/* ==========================================================================
+   Projects (drafts/projects.html: page hidden for the first iteration; styles kept for when it returns)
+   ========================================================================== */
+
+/* One column, same width as About, so pages line up (repetition). */
+.content-narrow {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+.project {
+	margin: 0 0 4em 0;
+}
+
+.project:last-child {
+	margin-bottom: 0;
+}
+
+.project h2 {
+	display: flex;
+	align-items: center;
+	gap: 0.6em;
+	margin: 0 0 0.5em 0;
+	font-size: 1.6em;
+	line-height: 1.3;
+}
+
+.project > p {
+	max-width: 40em;
+}
+
+/* "Prototype" label: text plus a border, not color alone. */
+.badge {
+	padding: 2px 10px;
+	border: 1px solid var(--accent);
+	border-radius: 999px;
+	color: var(--accent);
+	font-size: 0.45em;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	line-height: 1.8;
+}
+
+/* "Source on GitHub" link under the tags. */
+.project-links {
+	margin: 0 0 1.5em 0;
+}
+
+.project-links a {
+	border-bottom: none;
+	color: var(--ink);
+	text-decoration: underline;
+	text-decoration-color: var(--accent);
+	text-underline-offset: 4px;
+}
+
+.project figure {
+	margin: 0 0 1.5em 0;
+}
+
+.video-frame {
+	aspect-ratio: 16 / 9;
+	border-radius: var(--radius);
+	overflow: hidden;
+	background: var(--surface);
+}
+
+.video-frame iframe,
+.video-frame .photo-placeholder {
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+
+figcaption {
+	margin-top: 0.5em;
+	color: var(--muted);
+	font-size: 0.85em;
+	line-height: 1.5;
+}
+
+.note {
+	padding: 1.25em 1.5em;
+	background: var(--surface);
+	border-left: 3px solid var(--accent);
+	border-radius: var(--radius);
+}
+
+.note h3 {
+	margin: 0 0 0.5em 0;
+	color: var(--accent-light);
+	font-size: 1em;
+	line-height: 1.5;
+}
+
+.note p {
+	margin: 0;
+	font-size: 0.95em;
+}
+
+.diagram {
+	padding: 1.5em;
+	background: var(--surface);
+	border-radius: var(--radius);
+}
+
+.diagram svg {
+	display: block;
+	width: 100%;
+	max-width: 36em;
+	height: auto;
+	margin: 0 auto;
+}
+
+/* ==========================================================================
+   About (about.html)
+   ========================================================================== */
+
+/* Paragraph and gallery share this box, so they share one left edge. */
+.about-layout {
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+/* "Hi, I'm Kyle!": left-aligned subheading, smaller than the page name. */
+.about-greeting {
+	margin: 0 0 0.5em 0;
+	font-size: 1.5em;
+	line-height: 1.3;
+	text-align: left;
+}
+
+/* Readable line length (~70 characters), starting at the gallery's left edge.
+   In em, not ch: ch is the width of "0", wider than Roboto's average letter. */
+.about-text {
+	max-width: 29em;
+	margin: 0 0 2em 0;
+	text-align: left;
+}
+
+.about-text p:last-child {
+	margin-bottom: 0;
+}
+
+/*
+	12-column grid so both parts divide cleanly:
+	  Top: headshot (7 columns, ~60%) spanning two rows; side items (5 columns)
+	       beside it, either two stacked or one tall (.gallery-tall). The
+	       headshot's 4:5 shape sets the height, so the bottoms line up.
+	  Below: an even row of photos, 4 columns (one third) each.
+*/
+.gallery {
+	display: grid;
+	grid-template-columns: repeat(12, minmax(0, 1fr));
+	grid-template-rows: minmax(0, 1fr) minmax(0, 1fr) auto;
+	gap: 1.5em;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+/* Landed pads every ul li on the left; the gallery tiles shouldn't be indented. */
+.gallery li {
+	min-height: 0;
+	padding-left: 0;
+}
+
+.gallery-featured {
+	grid-column: span 7;
+	grid-row: 1 / span 2;
+}
+
+.gallery-side {
+	grid-column: span 5;
+}
+
+/* A single side item fills both rows beside the headshot. */
+.gallery-tall {
+	grid-row: 1 / span 2;
+}
+
+.gallery-row {
+	grid-column: span 4;
+}
+
+/* Each tile: media fills the space above its caption. */
+.gallery figure {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	margin: 0;
+}
+
+.gallery img,
+.gallery video {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: cover;
+	border-radius: var(--radius);
+	background: var(--surface);
+}
+
+.gallery-featured img {
+	aspect-ratio: 4 / 5;
+	object-position: center 20%;
+}
+
+/* Side media shrink or grow to fill their row (flex-basis 0). */
+.gallery-side img,
+.gallery-side video {
+	flex: 1 1 0;
+	min-height: 0;
+}
+
+/* Bottom row: same 4:3 shape for every photo. */
+.gallery-row img {
+	aspect-ratio: 4 / 3;
+}
+
+/* Keep the people in frame when a wide photo is cropped. */
+.gallery img.crop-low {
+	object-position: center 80%;
+}
+
+.gallery video {
+	object-position: center 40%;
+}
+
+/* ==========================================================================
+   Résumé (resume.html)
+   ========================================================================== */
+
+.resume-actions {
+	justify-content: center;
+	margin-bottom: 2em;
+}
+
+/* White page on the dark site, framed like a sheet of paper. */
+.resume-preview {
+	max-width: 850px;
+	margin: 0 auto;
+}
+
+.resume-preview img {
+	display: block;
+	width: 100%;
+	height: auto;
+	border-radius: 4px;
+	box-shadow: 0 0.5em 2em rgba(0, 0, 0, 0.45);
+}
+
+/* ==========================================================================
+   Responsive (Landed's breakpoints)
+   ========================================================================== */
+
+@media screen and (max-width: 980px) {
+	.highlights {
+		grid-template-columns: 1fr;
+	}
+
+}
+
+@media screen and (max-width: 736px) {
+	#banner {
+		padding: 3em 0;
+	}
+
+	#banner .content {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 1.5em;
+		padding: 0 1.25em;
+	}
+
+	#banner .content .image,
+	#banner .content .headshot-placeholder {
+		width: 9em;
+		height: 9em;
+	}
+
+	#banner .content header h1 {
+		font-size: 2.25em;
+	}
+
+	/* Keep each page name the largest heading on phones. */
+	header.major h1 {
+		font-size: 1.9em;
+	}
+
+	.project h2 {
+		font-size: 1.35em;
+	}
+
+	.timeline-title {
+		font-size: 1.3em;
+	}
+}
+
+@media screen and (max-width: 736px) {
+	/* Phones: one column; each item gets its own shape instead of filling a row. */
+	.gallery {
+		grid-template-columns: 1fr;
+		grid-template-rows: none;
+	}
+
+	.gallery-featured,
+	.gallery-side,
+	.gallery-tall,
+	.gallery-row {
+		grid-column: auto;
+		grid-row: auto;
+	}
+
+	.gallery-side img {
+		flex: none;
+		aspect-ratio: 4 / 3;
+	}
+
+	.gallery-side video {
+		flex: none;
+		aspect-ratio: 4 / 5;
+	}
+}
+
+/* ==========================================================================
+   Reduced motion: turn off Landed's fade-ins, parallax, and all transitions.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* Résumé "Last updated" line, under the image. */
+.resume-updated {
+	text-align: center;
+}
+
+.resume-preview a {
+	display: block;
+	border-bottom: none;
+}
